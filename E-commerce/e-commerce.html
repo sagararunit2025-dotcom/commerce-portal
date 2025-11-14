@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Portal</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showPage('home')">Home</a></li>
+            <li><a href="#" onclick="showPage('products')">Product Items</a></li>
+            <li><a href="#" onclick="showPage('contact')">Contact Us</a></li>
+            <li><a href="#" onclick="showPage('about')">About us</a></li>
+        </ul>
+    </nav>
+    <section id="home" class="page">
+        <h1>Welcome to our Alliance</h1>
+        <p>Shop the best products here!</p>
+    </section>
+    <section id="contact" class="page" style="display: none;">
+        <h2>Contact US</h2>
+        <p>Email:support@shop.com</p>
+    </section>
+    <section id="about" class="page" style="display: none;">
+        <h2>About Us</h2>
+        <p>This is a demo E-commerce project</p>
+    </section>
+    <section id="products" class="page" style="display: none;">
+        <h2>Product-list</h2>
+        <ul id="product-list"></ul>
+        <h3>Your Wishlist:</h3>
+        <ul id="wishlist"></ul>
+        <h3>Your Orders:</h3>
+        <ul id="orders"></ul>
+    </section>
+    <section>
+        <h2>Register</h2>
+        <form onsubmit="registerUser(); return false;">
+            <input id="regName" placeholder="Full Name"><br>
+            <input id="regEmail" placeholder="Email" type="email"><br>
+            <input id="regPass" placeholder="Password" type="password"><br>
+            <button style="background-color: blueviolet;">Register</button>
+        </form>
+    </section>
+    <section>
+        <h2>Login</h2>
+        <form onsubmit="loginUser(); return false;">
+            <input id="logEmail" placeholder="Email" type="email"><br>
+            <input id="logPass" placeholder="Password" type="password"><br>
+            <button style="background-color: blueviolet;">Login</button>
+        </form>
+    </section>
+    <script>
+        const products=[
+            {name:"Phone",price:"₹10,000"},
+            {name:"Laptop",price:"₹40,000"},
+            {name:"Shoes",price:"₹1,200"}
+        ];
+        let wishlist=[];
+        let orders=[];
+        function showPage(pageID){
+            document.querySelectorAll(".page").forEach(p=> p.style.display="none");
+            document.getElementById(pageID).style.display="block";
+        }
+        function loadProducts(){
+            let list=document.getElementById("product-list");
+            list.innerHTML=" ";
+            products.forEach((p,i)=>{
+                list.innerHTML+=`<li>${p.name}-${p.price}
+                <button onclick="addToWishlist(${i})">Wishlist</button>
+                <button onclick="orderItem(${i})">Order</button></li>`;
+            });
+        }
+        window.onload=loadProducts();
+        function addToWishlist(i){
+            Wishlist.push(products[i]);
+            displayWishlist();
+        }
+        function displayWishlist(){
+            document.getElementById("wishlist").innerHTML=wishlist.map(p=>`<li>${p.name}</li>`).join("");
+        }
+        function orderItem(i){
+            orders.push(products[i]);
+            displayOrders();
+        }
+        function displayOrders(){
+            document.getElementById("orders").innerHTML=orders.map(p=>`<li>${p.name}</li>`).join("");
+        }
+        function registerUser(){
+            alert("User Registered Successfully!");
+        }
+        function loginUser(){
+            alert("Logged in Successfully!");
+        }
+    </script>
+</body>
+</html>
